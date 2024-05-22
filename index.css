@@ -204,6 +204,10 @@ body {
 #used div:hover {
     cursor:text;
 }
+
+.container img {
+    width: 550px;
+}
 .container h1 {
     font-size:60px;
     text-decoration:underline;
