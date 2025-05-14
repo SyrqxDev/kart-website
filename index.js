@@ -51,3 +51,20 @@ setTimeout(function(){
       $("#work").removeClass("animated fadeIn");
     },1000);
 },1500);
+const images = [
+    'url("assets/img/20250501_143950000_iOS.jpg")',
+    'url("assets/img/20250426_194717326_iOS.jpg")',
+    'url("assets/img/20250425_230000000_iOS 2.jpg")',
+    'url("assets/img/20250426_192557126_iOS.jpg")'
+];
+
+let index = 0;
+const slideshow = document.getElementById('slideshow');
+
+function changeBackground() {
+    slideshow.style.backgroundImage = images[index];
+    index = (index + 1) % images.length;
+}
+
+changeBackground(); // Set initial image
+setInterval(changeBackground, 5000); // Change every 5 seconds
