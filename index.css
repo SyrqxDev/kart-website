@@ -8,6 +8,9 @@ body {
     height:100vh;
     overflow:hidden;
     font-family: 'Josefin Sans', sans-serif;
+    -webkit-transition: all 1s ease-in-out;
+    -moz-transition: all 1s ease-in-out;
+    -o-transition: all 1s ease-in-out;
     transition: background-image 1s ease-in-out;
 }
 
