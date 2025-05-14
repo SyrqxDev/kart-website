@@ -22,6 +22,9 @@ body {
     height: 100%;
     background-size: cover;
     background-position: center;
+    -webkit-transition: all 1s ease-in-out;
+    -moz-transition: all 1s ease-in-out;
+    -o-transition: all 1s ease-in-out;
     transition: background-image 1s ease-in-out;
     z-index: -1;
 }
