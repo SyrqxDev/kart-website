@@ -52,19 +52,31 @@ setTimeout(function(){
     },1000);
 },1500);
 const images = [
-    'url("assets/img/20250501_143950000_iOS.jpg")',
-    'url("assets/img/20250426_194717326_iOS.jpg")',
-    'url("assets/img/20250425_230000000_iOS 2.jpg")',
-    'url("assets/img/20250426_192557126_iOS.jpg")'
+    { url: '/assets/img/20250501_143950000_iOS.jpg', position: 'center center' },
+    { url: '/assets/img/20250426_194717326_iOS.jpg', position: 'bottom centre' },
+    { url: '/assets/img/20250425_230000000_iOS 2.jpg', position: 'center bottom' },
+    { url: '/assets/img/20250426_192557126_iOS.jpg', position: 'center bottom' },
+    { url: '/assets/img/20250426_192612741_iOS.jpg', position: 'center bottom' }
 ];
 
-let index = 0;
-const slideshow = document.getElementById('slideshow');
+const slideshowContainer = document.getElementById('slideshow');
+let slides = [];
+let current = 0;
 
-function changeBackground() {
-    slideshow.style.backgroundImage = images[index];
-    index = (index + 1) % images.length;
-}
+// Create slides dynamically
+images.forEach((img, index) => {
+    const slide = document.createElement('div');
+    slide.classList.add('slide');
+    slide.style.backgroundImage = `url('${encodeURIComponent(img.url)}')`;
+    slide.style.backgroundPosition = img.position;
+    if (index === 0) slide.classList.add('active');
+    slideshowContainer.appendChild(slide);
+    slides.push(slide);
+});
 
-changeBackground(); // Set initial image
-setInterval(changeBackground, 5000); // Change every 5 seconds
+// Crossfade logic
+setInterval(() => {
+    slides[current].classList.remove('active');
+    current = (current + 1) % slides.length;
+    slides[current].classList.add('active');
+}, 5000);
