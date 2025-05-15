@@ -53,10 +53,17 @@ setTimeout(function(){
 },1500);
 const images = [
     { url: '/assets/img/20250501_143950000_iOS.jpg', position: 'center center' },
-    { url: '/assets/img/20250426_194717326_iOS.jpg', position: 'bottom centre' },
+    { url: '/assets/img/20250426_194717326_iOS.jpg', position: 'bottom center' },
     { url: '/assets/img/20250425_230000000_iOS 2.jpg', position: 'center bottom' },
     { url: '/assets/img/20250426_192557126_iOS.jpg', position: 'center bottom' },
-    { url: '/assets/img/20250426_192612741_iOS.jpg', position: 'center bottom' }
+    { url: '/assets/img/20250426_192612741_iOS.jpg', position: 'center bottom' },
+    { url: '/assets/img/img2.jpeg', position: 'center center' },
+    { url: '/assets/img/img3.jpeg', position: 'center center' },
+    { url: '/assets/img/img4.jpeg', position: 'center center' },
+    { url: '/assets/img/img5.jpeg', position: 'center center' },
+    { url: '/assets/img/img6.jpeg', position: 'center center' },
+    { url: '/assets/img/img7.jpeg', position: 'center center' },
+
 ];
 
 const slideshowContainer = document.getElementById('slideshow');
