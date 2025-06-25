@@ -64,7 +64,9 @@ const images = [
     { url: '/assets/img/img6.jpeg', position: 'center center' },
     { url: '/assets/img/img7.jpeg', position: 'center center' },
     { url: '/assets/img/img8.jpeg', position: 'center center' },
-
+    { url: '/assets/img/img9.jpg', position: 'center center' },
+    { url: '/assets/img/img10.jpg', position: 'center center' },
+    { url: '/assets/img/img11.jpg', position: 'center center' },
 ];
 
 const slideshowContainer = document.getElementById('slideshow');
