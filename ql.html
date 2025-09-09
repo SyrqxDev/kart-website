@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quick Links</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #f4f6f9;
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        h1 {
+            margin-bottom: 20px;
+            color: #333;
+        }
+
+        #card-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            width: 100%;
+            max-width: 1000px;
+        }
+
+        .card {
+            background: white;
+            border-radius: 12px;
+            padding: 20px;
+            text-align: center;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            cursor: pointer;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 6px 12px rgba(0,0,0,0.2);
+        }
+
+        .card-title {
+            font-size: 18px;
+            color: #0077cc;
+            font-weight: bold;
+        }
+
+        #add-form {
+            margin: 20px 0;
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        #add-form input {
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            font-size: 14px;
+        }
+
+        #add-form button {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 8px;
+            background: #0077cc;
+            color: white;
+            font-size: 14px;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+
+        #add-form button:hover {
+            background: #005fa3;
+        }
+    </style>
+</head>
+<body>
+<h1>Quick Links</h1>
+
+<form id="add-form">
+    <input type="text" id="title" placeholder="Card Title" required>
+    <input type="url" id="url" placeholder="https://example.com" required>
+    <button type="submit">Add Link</button>
+</form>
+
+<div id="card-container"></div>
+
+<script>
+    const STORAGE_KEY = "quick_links";
+    const cardContainer = document.getElementById("card-container");
+    const form = document.getElementById("add-form");
+    const titleInput = document.getElementById("title");
+    const urlInput = document.getElementById("url");
+
+    // Load from localStorage or fallback to default links
+    let links = JSON.parse(localStorage.getItem(STORAGE_KEY)) || [
+
+    ];
+
+    function saveLinks() {
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(links));
+    }
+
+    function renderCards() {
+        cardContainer.innerHTML = "";
+        links.forEach(link => {
+            const card = document.createElement("div");
+            card.className = "card";
+            card.innerHTML = `<div class="card-title">${link.title}</div>`;
+            card.onclick = () => window.open(link.url, "_blank");
+            cardContainer.appendChild(card);
+        });
+    }
+
+    form.addEventListener("submit", (e) => {
+        e.preventDefault();
+        const title = titleInput.value.trim();
+        const url = urlInput.value.trim();
+
+        if (title && url) {
+            links.push({ title, url });
+            saveLinks();
+            renderCards();
+            titleInput.value = "";
+            urlInput.value = "";
+        }
+    });
+
+    renderCards();
+</script>
+</body>
+</html>
