@@ -49,7 +49,7 @@ const results = [
 // The section then auto-updates with your real latest posts. Leave blank to
 // use the manual fallback list (`instaPosts`) further down.
 const BEHOLD_FEED_ID = "sImfTIJHxMLa47PchyoN";
-const INSTA_COUNT = 4;     // how many posts to show
+const INSTA_COUNT = 999;     // how many posts to show
 
 // Manual fallback — used only if BEHOLD_FEED_ID is empty or the feed fails.
 const instaPosts = [
