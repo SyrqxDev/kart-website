@@ -1,0 +1,11 @@
+{
+  "name": "Karting Portfolio Website 2",
+  "version": "1.0.0",
+  "description": "Modern karting portfolio website",
+  "main": "index.js",
+  "scripts": {
+    "start": "npx --yes serve .",
+    "dev": "python3 -m http.server 5173"
+  },
+  "private": true
+}

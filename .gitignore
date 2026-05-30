@@ -1,0 +1,8 @@
+# OS
+.DS_Store
+
+# Editor
+.idea/
+
+# Node
+node_modules/
