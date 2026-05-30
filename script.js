@@ -38,12 +38,9 @@ const about = {
 
 // ===== DATA — edit these to update the site =====
 const results = [
-  { date: "2025-09", event: "Club Championship Finale", circuit: "Local Raceway", cls: "Senior Rotax", pos: 1 },
-  { date: "2025-07", event: "Summer Sprint Cup R4", circuit: "Highbrook", cls: "Senior Rotax", pos: 2 },
-  { date: "2025-06", event: "Regional Series R3", circuit: "Forest Edge", cls: "Senior Rotax", pos: 3 },
-  { date: "2025-05", event: "Spring Open", circuit: "Local Raceway", cls: "Senior Rotax", pos: 1 },
-  { date: "2025-04", event: "Regional Series R2", circuit: "Coastal Park", cls: "Senior Rotax", pos: 5 },
-  { date: "2025-03", event: "Season Opener", circuit: "Highbrook", cls: "Senior Rotax", pos: 4 },
+  { date: "2025-07", event: "NKC 2025", circuit: "Warden Law", cls: "Senior Rotax", pos: 11 },
+  { date: "2024-09", event: "NKC 2024", circuit: "Three Sisters", cls: "Senior Rotax", pos: 13 },
+  { date: "2025-10", event: "NKC 2024", circuit: "Warden Law", cls: "Senior Rotax", pos: 20 },
 ];
 
 // ===== INSTAGRAM (live feed via Behold) =====
