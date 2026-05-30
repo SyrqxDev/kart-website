@@ -42,7 +42,7 @@ const results = [
   { date: "2025-07", event: "Summer Sprint Cup R4", circuit: "Highbrook", cls: "Senior Rotax", pos: 2 },
   { date: "2025-06", event: "Regional Series R3", circuit: "Forest Edge", cls: "Senior Rotax", pos: 3 },
   { date: "2025-05", event: "Spring Open", circuit: "Local Raceway", cls: "Senior Rotax", pos: 1 },
-  { date: "2025-04", event: "Regional Series R2", circuit: "Coastal Park", cls: "Senior Rotax", pos: 5 },
+  { date: "2025-04", event: "Indy 500", circuit: "Indianapolis Motor Speedway", cls: "Indicar", pos: 1 },
   { date: "2025-03", event: "Season Opener", circuit: "Highbrook", cls: "Senior Rotax", pos: 4 },
 ];
 
@@ -52,7 +52,7 @@ const results = [
 // The section then auto-updates with your real latest posts. Leave blank to
 // use the manual fallback list (`instaPosts`) further down.
 const BEHOLD_FEED_ID = "sImfTIJHxMLa47PchyoN";
-const INSTA_COUNT = 4;     // how many posts to show
+const INSTA_COUNT = 999;     // how many posts to show
 
 // Manual fallback — used only if BEHOLD_FEED_ID is empty or the feed fails.
 const instaPosts = [
