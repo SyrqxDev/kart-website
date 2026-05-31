@@ -281,58 +281,60 @@ c.setFont("Helvetica-Bold", 30)
 c.drawString(70, 105, "Sponsorship Proposal")
 c.setFillColor(MUTED)
 c.setFont("Helvetica", 13)
-c.drawString(70, 78, "George Whitbread Racing (GWR)  ·  National Kart Cup  ·  Senior Rotax")
+c.drawString(70, 78, "George Whitbread Racing (GWR)  ·  Senior Rotax  ·  National Championships")
 c.showPage()
 
 # --- Page 2: About ---
 text_page(c, f"{TMP}/about.jpg", "01", "About",
           ["About Tristan"],
-          ["Tristan Sharpe, 16, living in Nottinghamshire, found a passion for motorsport at a "
-           "young age, founding his talent at his local kart tracks. Even from the beginning Tristan "
-           "frequently placed high in his races, often finishing within the top 5.",
-           "After a few years of gathering race craft and experience, he ventured into the world of "
-           "owner-driver karting, starting in four-stroke karts then entering the two-stroke world, "
-           "finishing in the top 3 at most local events.",
-           "He now competes in the National Kart Cup (NKC) against a higher level of competition, "
-           "racing in Senior Rotax for George Whitbread Racing (GWR)."])
+          ["Tristan Sharpe, 16, from Nottinghamshire, discovered his passion for motorsport at an "
+           "early age and developed his talent at his local kart tracks. From the outset he showed "
+           "real promise, consistently finishing inside the top five.",
+           "After building his race craft and experience over several seasons, Tristan progressed "
+           "into owner-driver karting — beginning in four-stroke machinery before stepping up to the "
+           "more demanding two-stroke category, where he regularly finished on the podium at local "
+           "events.",
+           "Today he competes against a high level of national competition, racing in Senior Rotax "
+           "for George Whitbread Racing (GWR)."])
 c.showPage()
 
 # --- Page 3: Why ---
 text_page(c, f"{TMP}/why.jpg", "02", "The Goal",
           ["Why sponsorship?"],
-          ["Tristan is looking for sponsorship to help fund his karting career and bring home strong "
-           "results for himself and his team — for example, hiring an engine and maintaining his "
-           "chassis to ensure there are no failures on track.",
-           "This support covers not only the National Kart Cup, but also other championships across "
-           "our local area."])
+          ["Tristan is seeking sponsorship to help fund his karting career and deliver strong results "
+           "for himself and his team. Support contributes directly to essentials such as engine hire "
+           "and chassis maintenance, ensuring reliability and competitiveness on track.",
+           "This backing supports his full racing programme — from national-level events to the "
+           "championships he contests across the local region."])
 c.showPage()
 
 # --- Page 4: Return ---
 text_page(c, f"{TMP}/return.jpg", "03", "Partnership",
           ["What you get", "in return"],
-          ["In return for your support, Tristan will display your business logo on the bodywork of the "
-           "kart, his helmet, the race van/trailer, his race suit, and across his social media posts.",
+          ["In return for your support, your brand will be represented across the bodywork of the "
+           "kart, Tristan's helmet, the race van and trailer, his race suit, and throughout his "
+           "social media content.",
            "Tristan's races are live-streamed on YouTube and Facebook, reaching a worldwide audience "
-           "and giving great exposure to your brand. You'll also be invited to experience a race "
-           "weekend trackside, making use of the team's hospitality area."])
+           "and delivering valuable exposure for your business. As a partner, you'll also be invited "
+           "to experience a race weekend trackside, with access to the team's hospitality area."])
 c.showPage()
 
 # --- Page 5: Helps ---
 text_page(c, f"{TMP}/helps.jpg", "04", "Your Impact",
           ["What it helps", "Tristan with"],
-          ["All funding goes towards the season's requirements: fuel, race and practice entry fees, "
-           "spare parts, engines and maintenance, racing gear (helmets, graphics, suits, gloves, "
-           "boots), tyres and team fees.",
-           "The following pages break down seasonal costs. You may choose to cover one or more of "
-           "these expenses, or discuss an alternative way to support Tristan's journey. Any support "
-           "is greatly appreciated."])
+          ["Every contribution goes directly towards the season's running costs: fuel, race and "
+           "practice entry fees, spare parts, engines and maintenance, racing gear (helmets, "
+           "graphics, suits, gloves and boots), tyres and team fees.",
+           "The following pages provide a breakdown of the seasonal costs. You're welcome to cover "
+           "one or more of these areas, or to discuss an alternative arrangement that suits your "
+           "business. Any level of support is genuinely appreciated."])
 c.showPage()
 
 # --- Pages 6-8: Costs ---
 costs1 = [
-    ("TEAM FEE", "Covers team mechanics, data, fuel and coaching. A normal weekend is 3 days, Friday to Sunday.", "£200 per day / £600 a weekend over 6 weekends"),
-    ("ENGINE HIRE FEE", "Covers the engine hired from the team and used over the course of the weekend.", "£125 a day over 3 days / 6 weekends"),
-    ("TYRES", "Covers race/practice tyres — essential for Tristan to practice for his races.", "£175 per set"),
+    ("TEAM FEE", "Covers team mechanics, data, fuel and coaching. A normal weekend is 3 days, Friday to Sunday.", "£170 per day / £510 a weekend over 6 weekends"),
+    ("ENGINE HIRE FEE", "Covers the engine hired from the team and used over the course of the weekend.", "£150 a day over 3 days / 6 weekends"),
+    ("TYRES", "Covers race/practice tyres — essential for Tristan to practice for his races.", "£220 per set"),
     ("TRACK TEST DAY FEE", "Covers the track fee per driver to test for the day.", "£100 per day"),
     ("TEAM TEST DAY FEE", "A test day with the team, including mechanics, fuel, coaching, data and the track day fee.", "£300 per day"),
 ]
@@ -356,8 +358,9 @@ accent_bar(c, 70, PH - 150, 120, 9)
 c.setFillColor(WHITE)
 c.setFont("Helvetica-Bold", 60)
 c.drawString(66, PH - 215, "Thank You!")
-draw_paragraph(c, "Thank you for taking the time to read. I hope we can come to an agreement and "
-               "work together in the coming season.", 70, PH - 260, "Helvetica", 16, 24, 460, MUTED)
+draw_paragraph(c, "Thank you for taking the time to consider this proposal. I would welcome the "
+               "opportunity to discuss a partnership and work together over the coming season.",
+               70, PH - 260, "Helvetica", 16, 24, 460, MUTED)
 c.setFillColor(PINK)
 c.setFont("Helvetica-Bold", 16)
 c.drawString(70, 120, "Regards,")
