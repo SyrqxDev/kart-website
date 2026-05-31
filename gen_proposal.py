@@ -287,7 +287,7 @@ c.showPage()
 # --- Page 2: About ---
 text_page(c, f"{TMP}/about.jpg", "01", "About",
           ["About Tristan"],
-          ["Tristan Sharpe, 16, from Nottinghamshire, discovered his passion for motorsport at an "
+          ["Tristan Sharpe, 18, from Nottinghamshire, discovered his passion for motorsport at an "
            "early age and developed his talent at his local kart tracks. From the outset he showed "
            "real promise, consistently finishing inside the top five.",
            "After building his race craft and experience over several seasons, Tristan progressed "
