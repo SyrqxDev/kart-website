@@ -22,8 +22,7 @@ const about = {
   // Headline numbers shown as cards.
   stats: [
     { value: "12+", label: "Races" },
-    { value: "4", label: "Podiums" },
-    { value: "2", label: "Wins" },
+    { value: "22/100", label: "Top Finish" },
     { value: "5+", label: "Seasons" },
   ],
   // The detail card on the right. Add/remove rows freely.
