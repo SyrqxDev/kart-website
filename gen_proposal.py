@@ -253,6 +253,61 @@ def cost_page(c, num, title_lines, rows):
         y = cy - 8
 
 
+def brand_page(c, num, reach, zones):
+    """Brand exposure page: reach stat cards + branding placement chips."""
+    c.drawImage(f"{TMP}/plain.jpg", 0, 0, PW, PH)
+    x = 70
+    kicker(c, num, "Brand Exposure", x, PH - 70)
+    c.setFillColor(WHITE)
+    c.setFont("Helvetica-Bold", 40)
+    c.drawString(x, PH - 118, "Your brand's reach")
+
+    # reach stat cards
+    n = len(reach)
+    gap = 18
+    cw = (PW - 2 * x - gap * (n - 1)) / n
+    ch = 96
+    cy = PH - 250
+    for i, (val, lbl) in enumerate(reach):
+        cx = x + i * (cw + gap)
+        # gradient card
+        seg = 40
+        for s in range(seg):
+            t = s / (seg - 1)
+            col = Color(PINK.red + (PURPLE.red - PINK.red) * t,
+                        PINK.green + (PURPLE.green - PINK.green) * t,
+                        PINK.blue + (PURPLE.blue - PINK.blue) * t)
+            c.setFillColor(col)
+            c.rect(cx + (cw / seg) * s, cy, cw / seg + 0.5, ch, stroke=0, fill=1)
+        c.setFillColor(WHITE)
+        c.setFont("Helvetica-Bold", 30)
+        c.drawCentredString(cx + cw / 2, cy + ch - 44, val)
+        c.setFont("Helvetica", 11)
+        for li, ln in enumerate(wrap(c, lbl, "Helvetica", 11, cw - 16)):
+            c.drawCentredString(cx + cw / 2, cy + 26 - li * 12, ln)
+
+    # placement
+    c.setFillColor(WHITE)
+    c.setFont("Helvetica-Bold", 18)
+    c.drawString(x, cy - 46, "Where your branding appears")
+    # chips
+    chip_y = cy - 96
+    cx = x
+    c.setFont("Helvetica-Bold", 12)
+    for z in zones:
+        w = c.stringWidth(z, "Helvetica-Bold", 12) + 36
+        if cx + w > PW - x:
+            cx = x
+            chip_y -= 50
+        c.setStrokeColor(PINK)
+        c.setFillColor(HexColor("#17131f"))
+        c.setLineWidth(1.4)
+        c.roundRect(cx, chip_y, w, 36, 10, stroke=1, fill=1)
+        c.setFillColor(WHITE)
+        c.drawString(cx + 18, chip_y + 12, z)
+        cx += w + 14
+
+
 # ============ BUILD ============
 print("Composing backgrounds...")
 make_bg("IMG_0660.jpg", f"{TMP}/cover.jpg", "cover")
@@ -319,8 +374,22 @@ text_page(c, f"{TMP}/return.jpg", "03", "Partnership",
            "to experience a race weekend trackside, with access to the team's hospitality area."])
 c.showPage()
 
+# --- Page 4b: Brand Exposure (reach + placement) ---
+reach_stats = [
+    ("485+", "Instagram followers"),
+    ("1K+", "Live-stream views per race"),   # estimate — update with real figure
+    ("12+", "Races per season"),
+    ("Global", "YouTube & Facebook live"),
+]
+placement_zones = [
+    "Helmet", "Race Suit", "Kart Side Pods", "Nose Cone",
+    "Rear Bumper", "Race Van & Trailer", "Social Media Posts",
+]
+brand_page(c, "04", reach_stats, placement_zones)
+c.showPage()
+
 # --- Page 5: Helps ---
-text_page(c, f"{TMP}/helps.jpg", "04", "Your Impact",
+text_page(c, f"{TMP}/helps.jpg", "05", "Your Impact",
           ["What it helps", "Tristan with"],
           ["Every contribution goes directly towards the season's running costs: fuel, race and "
            "practice entry fees, spare parts, engines and maintenance, racing gear (helmets, "
@@ -348,9 +417,9 @@ costs2 = [
 costs3 = [
     ("SPARES", "Covers any spares needed after a race weekend or to prepare for a race weekend / test day.", "£350 per day over 3 days (price may vary)"),
 ]
-cost_page(c, "05", ["Seasonal", "Costs (1)"], costs1); c.showPage()
-cost_page(c, "05", ["Seasonal", "Costs (2)"], costs2); c.showPage()
-cost_page(c, "05", ["Seasonal", "Costs (3)"], costs3); c.showPage()
+cost_page(c, "06", ["Seasonal", "Costs (1)"], costs1); c.showPage()
+cost_page(c, "06", ["Seasonal", "Costs (2)"], costs2); c.showPage()
+cost_page(c, "06", ["Seasonal", "Costs (3)"], costs3); c.showPage()
 
 # --- Page 9: Thank you ---
 c.drawImage(f"{TMP}/thanks.jpg", 0, 0, PW, PH)

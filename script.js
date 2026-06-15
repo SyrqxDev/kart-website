@@ -38,6 +38,22 @@ const about = {
   ],
 };
 
+// ===== SPONSORSHIP REACH — edit these numbers (used in the Sponsorship section) =====
+// TODO: confirm the values marked "estimate" with your real figures.
+const reach = [
+  { value: "485+", label: "Instagram Followers" },
+  { value: "1K+", label: "Live-Stream Views / Race" },   // estimate — update me
+  { value: "12+", label: "Races / Season" },
+  { value: "YouTube", label: "+ Facebook Live" },
+];
+
+// ===== CURRENT PARTNERS — add/remove your sponsors here =====
+const partners = [
+  { name: "George Whitbread Racing", url: "https://www.instagram.com/gwracing_/" },
+  { name: "Just Cards Direct", url: "https://www.instagram.com/justcardsdirect/" },
+  { name: "Bright Green MSK", url: "https://www.instagram.com/brightgreenmsk/" },
+];
+
 // ===== DATA — edit these to update the site =====
 const results = [
   { date: "2025-07", event: "NKC 2025", circuit: "Warden Law", cls: "Senior Rotax", pos: 11 },
@@ -121,6 +137,12 @@ document.getElementById("aboutStats").innerHTML = about.stats.map(s =>
   `<div class="stat"><strong>${s.value}</strong><span>${s.label}</span></div>`).join("");
 document.getElementById("aboutSpec").innerHTML = about.spec.map(s =>
   `<li><span>${s.label}</span><strong>${s.value}</strong></li>`).join("");
+
+// ===== RENDER REACH + PARTNERS =====
+document.getElementById("reachStats").innerHTML = reach.map(s =>
+  `<div class="stat"><strong>${s.value}</strong><span>${s.label}</span></div>`).join("");
+document.getElementById("partners").innerHTML = partners.map(p =>
+  `<a class="partner" href="${p.url}" target="_blank" rel="noopener">${p.name}</a>`).join("");
 
 // ===== RENDER RESULTS =====
 function posClass(p) { return p <= 3 ? `pos pos--p${p}` : "pos"; }
