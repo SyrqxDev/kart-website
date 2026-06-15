@@ -525,19 +525,22 @@ c.showPage()
 # --- Pages 6-7: Season budget + ways to support ---
 # Season estimates built from the per-unit costs and quantities:
 # 6 race weekends, 6 test days, pre-rounds, plus maintenance/repairs contingency.
+# Built on GWR 2026 official rates: team fee £150/day (+~£35 expenses),
+# kart prep £125, fuel & oil £25/day, engine hire £150/day, etc.
 budget_rows = [
-    ("Race weekends (x6)", "Team fees, 2 tyre sets & fuel across 6 rounds", 6600),
-    ("Test days (x6)", "Team test days including track fees", 1800),
-    ("Pre-rounds", "Practice races at the circuit before each round", 2700),
-    ("Maintenance & repairs", "Servicing, engine rebuilds, crash damage & spares", 5200),
+    ("Race weekends (x6)", "Team support, kart prep, 2 tyre sets, fuel & expenses", 7170),
+    ("Test days (x6)", "Team test days — support, fuel & expenses", 1260),
+    ("Pre-rounds", "Practice races at the circuit before each round", 2100),
+    ("Maintenance & repairs", "Engine rebuilds, crash damage, spares & storage", 4500),
     ("Championship entry", "Full championship registration & round fees", 1700),
 ]
-season_total = sum(r[2] for r in budget_rows)   # ~£18,000
+season_total = sum(r[2] for r in budget_rows)   # ~£16,730
 
 support_items = [
+    ("£150", "A day of team support"),
     ("£220", "A set of race tyres"),
-    ("£300", "A test day with the team"),
-    ("£510", "A full race weekend"),
+    ("£450", "Team support for a race weekend"),
+    ("£210", "A test day with the team"),
     ("£750", "An engine rebuild"),
     ("£1,700", "A full championship entry"),
 ]
