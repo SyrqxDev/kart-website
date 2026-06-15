@@ -253,6 +253,124 @@ def cost_page(c, num, title_lines, rows):
         y = cy - 8
 
 
+def gcolor(t):
+    """Pink->purple gradient colour at position t (0..1)."""
+    return Color(PINK.red + (PURPLE.red - PINK.red) * t,
+                 PINK.green + (PURPLE.green - PINK.green) * t,
+                 PINK.blue + (PURPLE.blue - PINK.blue) * t)
+
+
+def grad_rect(c, x, y, w, h, t0=0.0, t1=1.0):
+    seg = 40
+    for s in range(seg):
+        c.setFillColor(gcolor(t0 + (t1 - t0) * s / (seg - 1)))
+        c.rect(x + (w / seg) * s, y, w / seg + 0.6, h, stroke=0, fill=1)
+
+
+def budget_page(c, num, rows, total):
+    """Season budget: category rows + breakdown bar + headline total."""
+    c.drawImage(f"{TMP}/plain.jpg", 0, 0, PW, PH)
+    x = 70
+    kicker(c, num, "The Investment", x, PH - 70)
+    c.setFillColor(WHITE)
+    c.setFont("Helvetica-Bold", 40)
+    c.drawString(x, PH - 118, "Season Budget")
+
+    # category rows (left)
+    lx, lw = 70, 500
+    top = PH - 150
+    rh = 46
+    gap = 8
+    for i, (cat, desc, amt) in enumerate(rows):
+        cy = top - i * (rh + gap) - rh
+        c.setFillColor(HexColor("#17131f"))
+        c.rect(lx, cy, lw, rh, stroke=0, fill=1)
+        c.setFillColor(gcolor(i / max(len(rows) - 1, 1)))
+        c.rect(lx, cy, 5, rh, stroke=0, fill=1)   # accent tab
+        c.setFillColor(WHITE)
+        c.setFont("Helvetica-Bold", 12.5)
+        c.drawString(lx + 18, cy + rh - 19, cat)
+        c.setFillColor(MUTED)
+        c.setFont("Helvetica", 8.7)
+        c.drawString(lx + 18, cy + 8, desc)
+        c.setFillColor(WHITE)
+        c.setFont("Helvetica-Bold", 15)
+        c.drawRightString(lx + lw - 16, cy + rh / 2 - 5, f"£{amt:,}")
+
+    bottom = top - len(rows) * (rh + gap)
+
+    # breakdown bar
+    bar_x, bar_w = 70, 500
+    bar_y = bottom - 6
+    bh = 16
+    cx = bar_x
+    for i, (_, _, amt) in enumerate(rows):
+        seg_w = bar_w * amt / total
+        c.setFillColor(gcolor(i / max(len(rows) - 1, 1)))
+        c.rect(cx, bar_y - bh, seg_w, bh, stroke=0, fill=1)
+        cx += seg_w
+    c.setFillColor(MUTED)
+    c.setFont("Helvetica", 8.5)
+    c.drawString(bar_x, bar_y - bh - 14, "Approximate share of the season budget")
+
+    # headline total card (right)
+    tcx, tcw = 640, 250
+    tcy, tch = PH - 320, 150
+    grad_rect(c, tcx, tcy, tcw, tch)
+    c.setFillColor(WHITE)
+    c.setFont("Helvetica", 12)
+    c.drawCentredString(tcx + tcw / 2, tcy + tch - 34, "Estimated season budget")
+    c.setFont("Helvetica-Bold", 46)
+    c.drawCentredString(tcx + tcw / 2, tcy + tch - 92, f"~£{total:,}")
+    c.setFont("Helvetica", 10.5)
+    c.drawCentredString(tcx + tcw / 2, tcy + 22, "6 rounds · 6 test days · pre-rounds")
+
+    c.setFillColor(MUTED)
+    c.setFont("Helvetica-Oblique", 9)
+    c.drawString(tcx, tcy - 18, "Figures are season estimates and may vary.")
+
+
+def support_page(c, num, items, footer):
+    """Ways to support: grid of fundable amounts."""
+    c.drawImage(f"{TMP}/plain.jpg", 0, 0, PW, PH)
+    x = 70
+    kicker(c, num, "Ways to Support", x, PH - 70)
+    c.setFillColor(WHITE)
+    c.setFont("Helvetica-Bold", 40)
+    c.drawString(x, PH - 118, "Fund a part of the season")
+    c.setFillColor(MUTED)
+    c.setFont("Helvetica", 13)
+    c.drawString(x, PH - 146, "Back a specific cost, or combine several — whatever suits your budget.")
+
+    per_row = 3
+    gap = 18
+    cw = (PW - 2 * x - gap * (per_row - 1)) / per_row
+    ch = 96
+    top = PH - 180
+    for i, (amt, label) in enumerate(items):
+        r, col_i = divmod(i, per_row)
+        cx = x + col_i * (cw + gap)
+        cy = top - r * (ch + gap) - ch
+        c.setFillColor(HexColor("#17131f"))
+        c.rect(cx, cy, cw, ch, stroke=0, fill=1)
+        c.setStrokeColor(PINK)
+        c.setLineWidth(1.2)
+        c.rect(cx, cy, cw, ch, stroke=1, fill=0)
+        c.setFillColor(gcolor(col_i / (per_row - 1)))
+        c.setFont("Helvetica-Bold", 30)
+        c.drawString(cx + 20, cy + ch - 44, amt)
+        c.setFillColor(WHITE)
+        c.setFont("Helvetica", 12)
+        for li, ln in enumerate(wrap(c, label, "Helvetica", 12, cw - 36)):
+            c.drawString(cx + 20, cy + 28 - li * 14, ln)
+
+    rows_n = (len(items) + per_row - 1) // per_row
+    by = top - rows_n * (ch + gap)
+    c.setFillColor(WHITE)
+    c.setFont("Helvetica-Bold", 13)
+    c.drawString(x, by - 6, footer)
+
+
 def brand_page(c, num, reach, zones):
     """Brand exposure page: reach stat cards + branding placement chips."""
     c.drawImage(f"{TMP}/plain.jpg", 0, 0, PW, PH)
@@ -404,27 +522,30 @@ text_page(c, f"{TMP}/helps.jpg", "05", "Your Impact",
            "business. Any level of support is genuinely appreciated."])
 c.showPage()
 
-# --- Pages 6-8: Costs ---
-costs1 = [
-    ("TEAM FEE", "Covers team mechanics, data, fuel and coaching. A normal weekend is 3 days, Friday to Sunday.", "£170 per day / £510 a weekend over 6 weekends"),
-    ("ENGINE HIRE FEE", "Covers the engine hired from the team and used over the course of the weekend.", "£150 a day over 3 days / 6 weekends"),
-    ("TYRES", "Covers race/practice tyres — essential for Tristan to practice for his races.", "£220 per set"),
-    ("TRACK TEST DAY FEE", "Covers the track fee per driver to test for the day.", "£100 per day"),
-    ("TEAM TEST DAY FEE", "A test day with the team, including mechanics, fuel, coaching, data and the track day fee.", "£300 per day"),
+# --- Pages 6-7: Season budget + ways to support ---
+# Season estimates built from the per-unit costs and quantities:
+# 6 race weekends, 6 test days, pre-rounds, plus maintenance/repairs contingency.
+budget_rows = [
+    ("Race weekends (x6)", "Team fees, engine hire, tyres & fuel across 6 rounds", 7980),
+    ("Test days (x6)", "Team test days including track fees", 1800),
+    ("Pre-rounds", "Practice races at the circuit before each round", 2700),
+    ("Maintenance & repairs", "Servicing, engine rebuilds, crash damage & spares", 5200),
+    ("Gear & championship entry", "Race gear, championship entry & sundries", 2500),
 ]
-costs2 = [
-    ("KART MAINTENANCE", "Covers maintaining the kart and engine to ensure maximum results on track.", "£150 per service"),
-    ("DAMAGE FEE", "Covers any damage caused at a race — an on-track incident resulting in a part being replaced.", "Up to £500 per weekend"),
-    ("PROTECTIVE GEAR", "Race gear kept to standard: suits, gloves, boots, helmets, rib protectors and any custom designs (helmet paint, kart graphics, suit printing).", "Price may vary"),
-    ("ENGINE MAINTENANCE", "Covers the engine being maintained for optimum performance.", "£750 per rebuild"),
-    ("CHAMPIONSHIP COSTS", "Covers the championship Tristan races in; prices vary by championship and can be discussed.", "£1700 (price may vary)"),
+season_total = sum(r[2] for r in budget_rows)   # ~£20,180
+
+support_items = [
+    ("£220", "A set of race tyres"),
+    ("£300", "A test day with the team"),
+    ("£510", "A full race weekend"),
+    ("£450", "Engine hire for a weekend"),
+    ("£750", "An engine rebuild"),
+    ("£1,700", "A full championship entry"),
 ]
-costs3 = [
-    ("SPARES", "Covers any spares needed after a race weekend or to prepare for a race weekend / test day.", "£350 per day over 3 days (price may vary)"),
-]
-cost_page(c, "06", ["Seasonal", "Costs (1)"], costs1); c.showPage()
-cost_page(c, "06", ["Seasonal", "Costs (2)"], costs2); c.showPage()
-cost_page(c, "06", ["Seasonal", "Costs (3)"], costs3); c.showPage()
+budget_page(c, "06", budget_rows, season_total); c.showPage()
+support_page(c, "06", support_items,
+             "Prefer a tailored package? I'm happy to discuss any level of support.")
+c.showPage()
 
 # --- Page 9: Thank you ---
 c.drawImage(f"{TMP}/thanks.jpg", 0, 0, PW, PH)
