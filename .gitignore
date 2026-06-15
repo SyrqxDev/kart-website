@@ -6,3 +6,6 @@
 
 # Node
 node_modules/
+
+# Large raw video source (compressed hero.mp4 is committed instead; >100MB blocked by GitHub)
+images/videos/20s_vid.mp4

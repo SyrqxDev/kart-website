@@ -4,6 +4,7 @@
 // They rotate automatically behind the title. Images show for SLIDE_INTERVAL;
 // videos play in full, then advance to the next slide.
 const heroImages = [
+    "images/videos/hero.mp4",
     "images/IMG_0310.jpg",
     "images/IMG_0179.jpg",
     "images/IMG_0276.jpg",
@@ -42,20 +43,28 @@ const about = {
 
 // ===== SPONSORSHIP REACH — edit these numbers (used in the Sponsorship section) =====
 // TODO: confirm the values marked "estimate" with your real figures.
+const TIKTOK_FOLLOWERS = 829;   // updated manually
 const reach = [
-  { value: "485+", label: "Instagram Followers" },
-  { value: "1K+", label: "Live-Stream Views / Race" },   // estimate — update me
+  // Combined followers auto-updates: live Instagram count + TikTok followers.
+  { value: "1.3K+", label: "Combined Followers", id: "reachFollowers" },
+  { value: "51K+", label: "Views Across Platforms" },   // ~40K Instagram + 11.7K TikTok
   { value: "6", label: "Races / Season" },
-  { value: "YouTube", label: "+ Facebook Live" },
+  { value: "Global", label: "YouTube & Facebook Live" },
 ];
 
 // ===== CURRENT PARTNERS — add/remove your sponsors here =====
-// Drop logo files in images/logos/ (PNG with transparent background works best).
-// If a logo is missing, the name shows on its own — nothing breaks.
 const partners = [
   { name: "George Whitbread Racing", url: "https://www.instagram.com/gwracing_/", logo: "images/logos/gwr.png" },
   { name: "Just Cards Direct", url: "https://www.instagram.com/justcardsdirect/", logo: "images/logos/just-cards-direct.png" },
   { name: "Bright Green MSK", url: "https://www.instagram.com/brightgreenmsk/", logo: "images/logos/bright-green-msk.png" },
+];
+
+// ===== FOOTER LOGOS — sponsors + governing body / affiliations =====
+const footerLogos = [
+  { name: "George Whitbread Racing", url: "https://www.instagram.com/gwracing_/", logo: "images/logos/gwr.png" },
+  { name: "Just Cards Direct", url: "https://www.instagram.com/justcardsdirect/", logo: "images/logos/just-cards-direct.png" },
+  { name: "Bright Green MSK", url: "https://www.instagram.com/brightgreenmsk/", logo: "images/logos/bright-green-msk.png" },
+  { name: "Motorsport UK", url: "https://www.motorsportuk.org/", logo: "images/logos/MSUK.png" },
 ];
 
 // ===== DATA — edit these to update the site =====
@@ -144,13 +153,23 @@ document.getElementById("aboutSpec").innerHTML = about.spec.map(s =>
 
 // ===== RENDER REACH + PARTNERS =====
 document.getElementById("reachStats").innerHTML = reach.map(s =>
-  `<div class="stat"><strong>${s.value}</strong><span>${s.label}</span></div>`).join("");
+  `<div class="stat"${s.id ? ` id="${s.id}"` : ""}><strong>${s.value}</strong><span>${s.label}</span></div>`).join("");
 document.getElementById("partners").innerHTML = partners.map(p => {
   const img = p.logo
     ? `<img class="partner__logo" src="${p.logo}" alt="${p.name}" onerror="this.remove()" />`
     : "";
   return `<a class="partner" href="${p.url}" target="_blank" rel="noopener">${img}<span class="partner__name">${p.name}</span></a>`;
 }).join("");
+
+const footerLogosEl = document.getElementById("footerLogos");
+if (footerLogosEl) {
+  footerLogosEl.innerHTML = footerLogos.map(p => {
+    const style = p.height ? ` style="max-height:${p.height}px"` : "";
+    return `<a class="footer__logo" href="${p.url}" target="_blank" rel="noopener" title="${p.name}">
+       <img src="${p.logo}" alt="${p.name}"${style} onerror="this.parentElement.remove()" />
+     </a>`;
+  }).join("");
+}
 
 // ===== RENDER RESULTS =====
 function posClass(p) { return p <= 3 ? `pos pos--p${p}` : "pos"; }
@@ -186,6 +205,14 @@ async function loadInstagram() {
     const res = await fetch(`https://feeds.behold.so/${BEHOLD_FEED_ID}`);
     if (!res.ok) throw new Error(res.status);
     const data = await res.json();
+
+    // live combined-follower count (Instagram + TikTok) in the reach section
+    const fCard = document.querySelector("#reachFollowers strong");
+    if (fCard && data.followersCount) {
+      const total = data.followersCount + TIKTOK_FOLLOWERS;
+      fCard.textContent = total >= 1000 ? (total / 1000).toFixed(1) + "K+" : total.toString();
+    }
+
     const posts = (data.posts || data).map(p => ({
       img: p.sizes?.medium?.mediaUrl || p.mediaUrl || p.thumbnailUrl,
       cap: (p.caption || p.prunedCaption || "").split("\n")[0].slice(0, 80) || "View on Instagram",

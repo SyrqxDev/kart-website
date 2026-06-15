@@ -262,14 +262,18 @@ def brand_page(c, num, reach, zones):
     c.setFont("Helvetica-Bold", 40)
     c.drawString(x, PH - 118, "Your brand's reach")
 
-    # reach stat cards
+    # reach stat cards (wrap into rows of up to `per_row`)
     n = len(reach)
+    per_row = n if n <= 4 else 3
     gap = 18
-    cw = (PW - 2 * x - gap * (n - 1)) / n
-    ch = 96
-    cy = PH - 250
+    cw = (PW - 2 * x - gap * (per_row - 1)) / per_row
+    ch = 84
+    top = PH - 220
+    rows = (n + per_row - 1) // per_row
     for i, (val, lbl) in enumerate(reach):
-        cx = x + i * (cw + gap)
+        r, col_i = divmod(i, per_row)
+        cx = x + col_i * (cw + gap)
+        cy = top - r * (ch + gap)
         # gradient card
         seg = 40
         for s in range(seg):
@@ -280,18 +284,19 @@ def brand_page(c, num, reach, zones):
             c.setFillColor(col)
             c.rect(cx + (cw / seg) * s, cy, cw / seg + 0.5, ch, stroke=0, fill=1)
         c.setFillColor(WHITE)
-        c.setFont("Helvetica-Bold", 30)
-        c.drawCentredString(cx + cw / 2, cy + ch - 44, val)
+        c.setFont("Helvetica-Bold", 28)
+        c.drawCentredString(cx + cw / 2, cy + ch - 40, val)
         c.setFont("Helvetica", 11)
         for li, ln in enumerate(wrap(c, lbl, "Helvetica", 11, cw - 16)):
-            c.drawCentredString(cx + cw / 2, cy + 26 - li * 12, ln)
+            c.drawCentredString(cx + cw / 2, cy + 22 - li * 12, ln)
 
+    bottom = top - (rows - 1) * (ch + gap)
     # placement
     c.setFillColor(WHITE)
     c.setFont("Helvetica-Bold", 18)
-    c.drawString(x, cy - 46, "Where your branding appears")
+    c.drawString(x, bottom - 44, "Where your branding appears")
     # chips
-    chip_y = cy - 96
+    chip_y = bottom - 92
     cx = x
     c.setFont("Helvetica-Bold", 12)
     for z in zones:
@@ -376,8 +381,8 @@ c.showPage()
 
 # --- Page 4b: Brand Exposure (reach + placement) ---
 reach_stats = [
-    ("485+", "Instagram followers"),
-    ("1K+", "Live-stream views per race"),   # estimate — update with real figure
+    ("1.3K+", "Combined followers"),
+    ("51K+", "Views across platforms"),
     ("6", "Races per season"),
     ("Global", "YouTube & Facebook live"),
 ]
@@ -438,7 +443,7 @@ c.setFont("Helvetica-Bold", 22)
 c.drawString(70, 90, "Tristan Sharpe")
 c.setFillColor(MUTED)
 c.setFont("Helvetica", 12)
-c.drawString(70, 64, "tsharpe541@gmail.com  ·  @tristansharpe193")
+c.drawString(70, 64, "contact@tristansharpe.uk  ·  @tristansharpe193")
 c.showPage()
 
 c.save()
