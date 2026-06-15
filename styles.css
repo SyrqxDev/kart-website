@@ -48,11 +48,14 @@ a { color: inherit; text-decoration: none; }
   justify-content: space-between;
 }
 .nav__logo {
-  font-family: 'Racing Sans One', sans-serif;
-  font-size: 1.5rem;
-  letter-spacing: 1px;
+  display: flex;
+  align-items: center;
 }
-.nav__logo span { color: var(--accent); }
+.nav__logo img {
+  height: 34px;
+  width: auto;
+  display: block;
+}
 .nav__links { display: flex; gap: 32px; }
 .nav__links a {
   font-size: .92rem;
