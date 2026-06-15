@@ -514,9 +514,8 @@ c.showPage()
 # --- Page 5: Helps ---
 text_page(c, f"{TMP}/helps.jpg", "05", "Your Impact",
           ["What it helps", "Tristan with"],
-          ["Every contribution goes directly towards the season's running costs: fuel, race and "
-           "practice entry fees, spare parts, engines and maintenance, racing gear (helmets, "
-           "graphics, suits, gloves and boots), tyres and team fees.",
+          ["Every contribution goes directly towards the season's running costs: team support, race "
+           "and test entry fees, fuel, tyres, engine rebuilds and maintenance, and championship fees.",
            "The following pages provide a breakdown of the seasonal costs. You're welcome to cover "
            "one or more of these areas, or to discuss an alternative arrangement that suits your "
            "business. Any level of support is genuinely appreciated."])
@@ -546,7 +545,7 @@ support_items = [
     ("£1,700", "A full championship entry"),
 ]
 budget_page(c, "06", budget_rows, season_total); c.showPage()
-support_page(c, "06", support_items,
+support_page(c, "07", support_items,
              "Prefer a tailored package? I'm happy to discuss any level of support.")
 c.showPage()
 
