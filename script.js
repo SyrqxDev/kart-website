@@ -4,6 +4,8 @@
 // They rotate automatically behind the title. Images show for SLIDE_INTERVAL;
 // videos play in full, then advance to the next slide.
 const heroImages = [
+    "images/IMG_0310.jpg",
+    "images/IMG_0179.jpg",
     "images/IMG_0276.jpg",
     "images/IMG_0292.jpg",
     "images/IMG_0303.jpg",
@@ -43,15 +45,17 @@ const about = {
 const reach = [
   { value: "485+", label: "Instagram Followers" },
   { value: "1K+", label: "Live-Stream Views / Race" },   // estimate — update me
-  { value: "12+", label: "Races / Season" },
+  { value: "6", label: "Races / Season" },
   { value: "YouTube", label: "+ Facebook Live" },
 ];
 
 // ===== CURRENT PARTNERS — add/remove your sponsors here =====
+// Drop logo files in images/logos/ (PNG with transparent background works best).
+// If a logo is missing, the name shows on its own — nothing breaks.
 const partners = [
-  { name: "George Whitbread Racing", url: "https://www.instagram.com/gwracing_/" },
-  { name: "Just Cards Direct", url: "https://www.instagram.com/justcardsdirect/" },
-  { name: "Bright Green MSK", url: "https://www.instagram.com/brightgreenmsk/" },
+  { name: "George Whitbread Racing", url: "https://www.instagram.com/gwracing_/", logo: "images/logos/gwr.png" },
+  { name: "Just Cards Direct", url: "https://www.instagram.com/justcardsdirect/", logo: "images/logos/just-cards-direct.png" },
+  { name: "Bright Green MSK", url: "https://www.instagram.com/brightgreenmsk/", logo: "images/logos/bright-green-msk.png" },
 ];
 
 // ===== DATA — edit these to update the site =====
@@ -141,8 +145,12 @@ document.getElementById("aboutSpec").innerHTML = about.spec.map(s =>
 // ===== RENDER REACH + PARTNERS =====
 document.getElementById("reachStats").innerHTML = reach.map(s =>
   `<div class="stat"><strong>${s.value}</strong><span>${s.label}</span></div>`).join("");
-document.getElementById("partners").innerHTML = partners.map(p =>
-  `<a class="partner" href="${p.url}" target="_blank" rel="noopener">${p.name}</a>`).join("");
+document.getElementById("partners").innerHTML = partners.map(p => {
+  const img = p.logo
+    ? `<img class="partner__logo" src="${p.logo}" alt="${p.name}" onerror="this.remove()" />`
+    : "";
+  return `<a class="partner" href="${p.url}" target="_blank" rel="noopener">${img}<span class="partner__name">${p.name}</span></a>`;
+}).join("");
 
 // ===== RENDER RESULTS =====
 function posClass(p) { return p <= 3 ? `pos pos--p${p}` : "pos"; }

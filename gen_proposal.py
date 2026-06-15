@@ -310,12 +310,12 @@ def brand_page(c, num, reach, zones):
 
 # ============ BUILD ============
 print("Composing backgrounds...")
-make_bg("IMG_0660.jpg", f"{TMP}/cover.jpg", "cover")
+make_bg("IMG_0310.jpg", f"{TMP}/cover.jpg", "cover")
 make_bg("IMG_0303.jpg", f"{TMP}/about.jpg", "side")
-make_bg("IMG_0382.jpg", f"{TMP}/why.jpg", "side")
+make_bg("IMG_0179.jpg", f"{TMP}/why.jpg", "side")
 make_bg("IMG_0276.jpg", f"{TMP}/return.jpg", "side")
 make_bg("IMG_0674.jpg", f"{TMP}/helps.jpg", "side")
-make_bg("IMG_0292.jpg", f"{TMP}/thanks.jpg", "cover")
+make_bg("IMG_0660.jpg", f"{TMP}/thanks.jpg", "cover")
 make_bg(None, f"{TMP}/plain.jpg", "plain")
 
 print("Building PDF...")
@@ -368,7 +368,7 @@ text_page(c, f"{TMP}/return.jpg", "03", "Partnership",
           ["What you get", "in return"],
           ["In return for your support, your brand will be represented across the bodywork of the "
            "kart, Tristan's helmet, the race van and trailer, his race suit, and throughout his "
-           "social media content.",
+           "social media content on Instagram, TikTok and beyond.",
            "Tristan's races are live-streamed on YouTube and Facebook, reaching a worldwide audience "
            "and delivering valuable exposure for your business. As a partner, you'll also be invited "
            "to experience a race weekend trackside, with access to the team's hospitality area."])
@@ -378,7 +378,7 @@ c.showPage()
 reach_stats = [
     ("485+", "Instagram followers"),
     ("1K+", "Live-stream views per race"),   # estimate — update with real figure
-    ("12+", "Races per season"),
+    ("6", "Races per season"),
     ("Global", "YouTube & Facebook live"),
 ]
 placement_zones = [
