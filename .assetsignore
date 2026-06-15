@@ -1,0 +1,11 @@
+.git
+.gitignore
+.assetsignore
+.idea
+.DS_Store
+node_modules
+wrangler.jsonc
+package.json
+package-lock.json
+gen_proposal.py
+README.md
