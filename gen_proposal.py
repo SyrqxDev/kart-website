@@ -525,23 +525,23 @@ c.showPage()
 # --- Pages 6-7: Season budget + ways to support ---
 # Season estimates built from the per-unit costs and quantities:
 # 6 race weekends, 6 test days, pre-rounds, plus maintenance/repairs contingency.
-# Built on GWR 2026 official rates: team fee £150/day (+~£35 expenses),
-# kart prep £125, fuel & oil £25/day, engine hire £150/day, etc.
+# Built on GWR 2026 rates: team support ~£170/day all-in (£150 + expenses),
+# kart prep £125, fuel & oil £25/day, 2 tyre sets/weekend at £220.
+# No mechanic fee and no engine hire/rebuild costs.
 budget_rows = [
-    ("Race weekends (x6)", "Team support, kart prep, 2 tyre sets, fuel & expenses", 7170),
-    ("Test days (x6)", "Team test days — support, fuel & expenses", 1260),
+    ("Race weekends (x6)", "Team support (incl. expenses), kart prep, 2 tyre sets & fuel", 6900),
+    ("Test days (x6)", "Team test days — support, fuel & sundries", 1170),
     ("Pre-rounds", "Practice races at the circuit before each round", 2100),
-    ("Maintenance & repairs", "Engine rebuilds, crash damage, spares & storage", 4500),
+    ("Maintenance & repairs", "Servicing, crash damage, spares & storage", 3000),
     ("Championship entry", "Full championship registration & round fees", 1700),
 ]
-season_total = sum(r[2] for r in budget_rows)   # ~£16,730
+season_total = sum(r[2] for r in budget_rows)   # ~£14,870
 
 support_items = [
-    ("£150", "A day of team support"),
+    ("£170", "A day of team support"),
     ("£220", "A set of race tyres"),
-    ("£450", "Team support for a race weekend"),
-    ("£210", "A test day with the team"),
-    ("£750", "An engine rebuild"),
+    ("£510", "Team support for a race weekend"),
+    ("£195", "A test day with the team"),
     ("£1,700", "A full championship entry"),
 ]
 budget_page(c, "06", budget_rows, season_total); c.showPage()
