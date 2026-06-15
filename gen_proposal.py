@@ -526,19 +526,18 @@ c.showPage()
 # Season estimates built from the per-unit costs and quantities:
 # 6 race weekends, 6 test days, pre-rounds, plus maintenance/repairs contingency.
 budget_rows = [
-    ("Race weekends (x6)", "Team fees, engine hire, tyres & fuel across 6 rounds", 7980),
+    ("Race weekends (x6)", "Team fees, 2 tyre sets & fuel across 6 rounds", 6600),
     ("Test days (x6)", "Team test days including track fees", 1800),
     ("Pre-rounds", "Practice races at the circuit before each round", 2700),
     ("Maintenance & repairs", "Servicing, engine rebuilds, crash damage & spares", 5200),
-    ("Gear & championship entry", "Race gear, championship entry & sundries", 2500),
+    ("Championship entry", "Full championship registration & round fees", 1700),
 ]
-season_total = sum(r[2] for r in budget_rows)   # ~£20,180
+season_total = sum(r[2] for r in budget_rows)   # ~£18,000
 
 support_items = [
     ("£220", "A set of race tyres"),
     ("£300", "A test day with the team"),
     ("£510", "A full race weekend"),
-    ("£450", "Engine hire for a weekend"),
     ("£750", "An engine rebuild"),
     ("£1,700", "A full championship entry"),
 ]
