@@ -1,6 +1,8 @@
 // ===== HERO SLIDESHOW =====
-// Add or remove images here — just edit this list. Use URLs or local paths
-// like "images/race1.jpg". They rotate automatically behind the title.
+// Add or remove media here — just edit this list. Use images (.jpg/.png) or
+// videos (.mp4/.webm/.mov), as local paths like "images/race.mp4" or URLs.
+// They rotate automatically behind the title. Images show for SLIDE_INTERVAL;
+// videos play in full, then advance to the next slide.
 const heroImages = [
     "images/IMG_0276.jpg",
     "images/IMG_0292.jpg",
@@ -9,8 +11,9 @@ const heroImages = [
     "images/IMG_0626.jpg",
     "images/IMG_0660.jpg",
     "images/IMG_0674.jpg",
+    // e.g. "images/onboard.mp4",
 ];
-const SLIDE_INTERVAL = 5000; // ms between slides
+const SLIDE_INTERVAL = 5000; // ms each image is shown
 
 // ===== ABOUT — edit your bio, stats and details here =====
 const about = {
@@ -39,7 +42,7 @@ const about = {
 const results = [
   { date: "2025-07", event: "NKC 2025", circuit: "Warden Law", cls: "Senior Rotax", pos: 11 },
   { date: "2024-09", event: "NKC 2024", circuit: "Three Sisters", cls: "Senior Rotax", pos: 13 },
-  { date: "2025-10", event: "NKC 2024", circuit: "Warden Law", cls: "Senior Rotax", pos: 20 },
+  { date: "2024-10", event: "NKC 2024", circuit: "Warden Law", cls: "Senior Rotax", pos: 20 },
 ];
 
 // ===== INSTAGRAM (live feed via Behold) =====
@@ -60,18 +63,55 @@ const instaPosts = [
 
 // ===== RENDER SLIDESHOW =====
 const slideshow = document.getElementById("heroSlideshow");
+const isVideo = (src) => /\.(mp4|webm|mov|ogg)(\?.*)?$/i.test(src);
+
 if (heroImages.length) {
-  slideshow.innerHTML = heroImages.map((src, i) =>
-    `<div class="hero__slide${i === 0 ? " active" : ""}" style="background-image:url('${src}')"></div>`
-  ).join("");
-  const slides = slideshow.querySelectorAll(".hero__slide");
+  slideshow.innerHTML = heroImages.map((src, i) => {
+    const active = i === 0 ? " active" : "";
+    if (isVideo(src)) {
+      return `<div class="hero__slide${active}">
+        <video muted playsinline preload="auto" ${i === 0 ? "autoplay" : ""}>
+          <source src="${src}" />
+        </video></div>`;
+    }
+    return `<div class="hero__slide${active}" style="background-image:url('${src}')"></div>`;
+  }).join("");
+
+  const slides = [...slideshow.querySelectorAll(".hero__slide")];
   if (slides.length > 1) {
     let current = 0;
-    setInterval(() => {
+    let timer = null;
+
+    const scheduleNext = () => {
+      clearTimeout(timer);
+      const vid = slides[current].querySelector("video");
+      if (vid) {
+        // advance when the video finishes (with a safety fallback timeout)
+        const dur = (vid.duration && isFinite(vid.duration) ? vid.duration * 1000 : 15000) + 500;
+        timer = setTimeout(next, dur);
+      } else {
+        timer = setTimeout(next, SLIDE_INTERVAL);
+      }
+    };
+
+    const next = () => {
+      const prevVid = slides[current].querySelector("video");
+      if (prevVid) prevVid.pause();
       slides[current].classList.remove("active");
       current = (current + 1) % slides.length;
       slides[current].classList.add("active");
-    }, SLIDE_INTERVAL);
+      const vid = slides[current].querySelector("video");
+      if (vid) { vid.currentTime = 0; vid.play().catch(() => {}); }
+      scheduleNext();
+    };
+
+    // let videos advance exactly when they end
+    slides.forEach((s) => {
+      const v = s.querySelector("video");
+      if (v) v.addEventListener("ended", () => { if (s.classList.contains("active")) next(); });
+    });
+
+    scheduleNext();
   }
 }
 

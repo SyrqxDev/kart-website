@@ -97,6 +97,13 @@ a { color: inherit; text-decoration: none; }
   transition: opacity 1.4s ease, transform 7s ease;
 }
 .hero__slide.active { opacity: 1; transform: scale(1); }
+.hero__slide video {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
 
 .hero__bg {
   position: absolute;
