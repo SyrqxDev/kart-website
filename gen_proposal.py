@@ -531,17 +531,18 @@ c.showPage()
 budget_rows = [
     ("Race weekends (x6)", "Team support (incl. expenses), kart prep, 2 tyre sets & fuel", 6900),
     ("Test days (x6)", "Team test days — support, fuel & sundries", 1170),
-    ("Pre-rounds", "Practice races at the circuit before each round", 2100),
-    ("Maintenance & repairs", "Servicing, crash damage, spares & storage", 3000),
+    ("Pre-rounds", "Practice races (2 days each) before championship rounds", 2700),
+    ("Maintenance & repairs", "Engine rebuild, servicing & crash damage", 3300),
     ("Championship entry", "Full championship registration & round fees", 1700),
 ]
-season_total = sum(r[2] for r in budget_rows)   # ~£14,870
+season_total = sum(r[2] for r in budget_rows)   # ~£15,770
 
 support_items = [
     ("£170", "A day of team support"),
     ("£220", "A set of race tyres"),
     ("£510", "Team support for a race weekend"),
     ("£195", "A test day with the team"),
+    ("£750", "An engine rebuild"),
     ("£1,700", "A full championship entry"),
 ]
 budget_page(c, "06", budget_rows, season_total); c.showPage()
