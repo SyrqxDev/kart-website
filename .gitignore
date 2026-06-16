@@ -10,3 +10,6 @@ node_modules/
 # Raw video sources — only the compressed hero.mp4 is committed (GitHub blocks >100MB)
 images/videos/*.mp4
 !images/videos/hero.mp4
+
+# Private outreach material (kept local, not published to the website/public repo)
+marketing/
