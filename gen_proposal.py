@@ -372,63 +372,69 @@ def support_page(c, num, items, footer):
 
 
 def brand_page(c, num, reach, zones):
-    """Brand exposure page: reach stat cards + branding placement chips."""
+    """Brand exposure page: reach stat cards + branding placement grid + impact bar."""
     c.drawImage(f"{TMP}/plain.jpg", 0, 0, PW, PH)
     x = 70
-    kicker(c, num, "Brand Exposure", x, PH - 70)
+    kicker(c, num, "Brand Exposure", x, PH - 58)
     c.setFillColor(WHITE)
-    c.setFont("Helvetica-Bold", 40)
-    c.drawString(x, PH - 118, "Your brand's reach")
+    c.setFont("Helvetica-Bold", 38)
+    c.drawString(x, PH - 102, "Your brand's reach")
+    c.setFillColor(MUTED)
+    c.setFont("Helvetica", 12.5)
+    c.drawString(x, PH - 126, "Real exposure on track, on camera and across social media.")
 
-    # reach stat cards (wrap into rows of up to `per_row`)
+    # --- reach stat cards (4 across) ---
     n = len(reach)
-    per_row = n if n <= 4 else 3
-    gap = 18
-    cw = (PW - 2 * x - gap * (per_row - 1)) / per_row
-    ch = 84
-    top = PH - 220
-    rows = (n + per_row - 1) // per_row
+    gap = 16
+    cw = (PW - 2 * x - gap * (n - 1)) / n
+    ch = 104
+    top = 380          # card top edge
+    cy = top - ch
     for i, (val, lbl) in enumerate(reach):
-        r, col_i = divmod(i, per_row)
-        cx = x + col_i * (cw + gap)
-        cy = top - r * (ch + gap)
-        # gradient card
-        seg = 40
-        for s in range(seg):
-            t = s / (seg - 1)
-            col = Color(PINK.red + (PURPLE.red - PINK.red) * t,
-                        PINK.green + (PURPLE.green - PINK.green) * t,
-                        PINK.blue + (PURPLE.blue - PINK.blue) * t)
-            c.setFillColor(col)
-            c.rect(cx + (cw / seg) * s, cy, cw / seg + 0.5, ch, stroke=0, fill=1)
+        cx = x + i * (cw + gap)
+        grad_rect(c, cx, cy, cw, ch)
         c.setFillColor(WHITE)
-        c.setFont("Helvetica-Bold", 28)
-        c.drawCentredString(cx + cw / 2, cy + ch - 40, val)
+        c.setFont("Helvetica-Bold", 30)
+        c.drawCentredString(cx + cw / 2, cy + ch - 48, val)
         c.setFont("Helvetica", 11)
-        for li, ln in enumerate(wrap(c, lbl, "Helvetica", 11, cw - 16)):
-            c.drawCentredString(cx + cw / 2, cy + 22 - li * 12, ln)
+        for li, ln in enumerate(wrap(c, lbl, "Helvetica", 11, cw - 18)):
+            c.drawCentredString(cx + cw / 2, cy + 26 - li * 12, ln)
 
-    bottom = top - (rows - 1) * (ch + gap)
-    # placement
+    # --- placement grid ---
     c.setFillColor(WHITE)
-    c.setFont("Helvetica-Bold", 18)
-    c.drawString(x, bottom - 44, "Where your branding appears")
-    # chips
-    chip_y = bottom - 92
-    cx = x
-    c.setFont("Helvetica-Bold", 12)
-    for z in zones:
-        w = c.stringWidth(z, "Helvetica-Bold", 12) + 36
-        if cx + w > PW - x:
-            cx = x
-            chip_y -= 50
-        c.setStrokeColor(PINK)
-        c.setFillColor(HexColor("#17131f"))
-        c.setLineWidth(1.4)
-        c.roundRect(cx, chip_y, w, 36, 10, stroke=1, fill=1)
-        c.setFillColor(WHITE)
-        c.drawString(cx + 18, chip_y + 12, z)
-        cx += w + 14
+    c.setFont("Helvetica-Bold", 17)
+    c.drawString(x, 248, "Where your brand appears")
+
+    pcols = 4
+    pgap = 14
+    pw = (PW - 2 * x - pgap * (pcols - 1)) / pcols
+    pth = 54
+    ptop = 222
+    prows = (len(zones) + pcols - 1) // pcols
+    for r in range(prows):
+        in_row = min(pcols, len(zones) - r * pcols)
+        row_w = in_row * pw + (in_row - 1) * pgap
+        start_x = (PW - row_w) / 2          # centre each row
+        ty = ptop - pth - r * (pth + pgap)
+        for j in range(in_row):
+            idx = r * pcols + j
+            tx = start_x + j * (pw + pgap)
+            c.setFillColor(HexColor("#17131f"))
+            c.rect(tx, ty, pw, pth, stroke=0, fill=1)
+            c.setFillColor(gcolor(idx / (len(zones) - 1)))
+            c.rect(tx, ty, 5, pth, stroke=0, fill=1)   # gradient accent tab
+            c.setFillColor(WHITE)
+            c.setFont("Helvetica-Bold", 11.5)
+            c.drawString(tx + 16, ty + pth / 2 - 4, zones[idx])
+
+    # --- impact bar (bottom) ---
+    bh = 46
+    by = 28
+    grad_rect(c, x, by, PW - 2 * x, bh)
+    c.setFillColor(WHITE)
+    c.setFont("Helvetica-Bold", 14)
+    c.drawCentredString(PW / 2, by + bh / 2 - 5,
+                        "Your brand travels to every round — seen trackside, on the live stream and online.")
 
 
 # ============ BUILD ============
