@@ -494,7 +494,9 @@ text_page(c, f"{TMP}/return.jpg", "03", "Partnership",
            "social media content on Instagram, TikTok and beyond.",
            "Tristan's races are live-streamed on YouTube and Facebook, reaching a worldwide audience "
            "and delivering valuable exposure for your business. As a partner, you'll also be invited "
-           "to experience a race weekend trackside, with access to the team's hospitality area."])
+           "to experience a race weekend trackside, with access to the team's hospitality area.",
+           "Sponsorship is a legitimate business marketing expense and is typically tax-deductible — "
+           "so your support can work for your brand twice over."])
 c.showPage()
 
 # --- Page 4b: Brand Exposure (reach + placement) ---
